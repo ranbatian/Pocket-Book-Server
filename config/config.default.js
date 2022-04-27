@@ -35,6 +35,9 @@ module.exports = appInfo => {
     app: true,
     agent: false,
   };
+  config.jwt = {
+    secret: 'Nick',
+  };
   // 关闭 csrf
   config.security = {
     csrf: {
