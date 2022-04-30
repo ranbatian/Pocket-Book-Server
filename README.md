@@ -2,32 +2,20 @@
 
 blog's server
 
-## QuickStart
+## Have done
 
-<!-- add docs here for user -->
+### Jwt 权鉴相关
 
-see [egg docs][egg] for more detail.
+#### 相关接口
 
-### Development
+1. 注册
+2. 登陆
+3. 登陆测试
 
-```bash
-$ npm i
-$ npm run dev
-$ open http://localhost:7001/
-```
+## How to start
 
-### Deploy
+1. `yarn install`
 
-```bash
-$ npm start
-$ npm stop
-```
+2. `yarn run dev`
 
-### npm scripts
-
-- Use `npm run lint` to check code style.
-- Use `npm test` to run unit test.
-- Use `npm run autod` to auto detect dependencies upgrade, see [autod](https://www.npmjs.com/package/autod) for more detail.
-
-
-[egg]: https://eggjs.org
+`server is running at port 7001`

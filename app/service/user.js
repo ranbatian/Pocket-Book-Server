@@ -26,6 +26,23 @@ class UserService extends Service {
       return null;
     }
   }
+
+  // * 修改用户信息
+  async editUserInfo(params) {
+    const { app } = this;
+    try {
+      // 通过 app.mysql.update 方法，指定 user 表；
+      const result = await app.mysql.update('user', {
+        ...params,
+      }, {
+        id: params.id, // 更新条件 为 ID === params.id;
+      });
+      return result;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  }
 }
 
 

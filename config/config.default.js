@@ -22,6 +22,11 @@ module.exports = appInfo => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
+    uploadDir: 'app/public/upload',
+  };
+
+  config.multipart = {
+    mode: 'file',
   };
 
   config.mysql = {
@@ -43,6 +48,12 @@ module.exports = appInfo => {
     csrf: {
       enable: false,
     },
+  };
+
+  config.cors = {
+    origin: '*', // 允许所有跨域访问
+    credentials: true,
+    allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH',
   };
 
   return {

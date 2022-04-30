@@ -54,7 +54,6 @@ class UserControl extends Controller {
   async login() {
     const { app, ctx } = this;
     const { username, password } = ctx.request.body;
-    console.log(username, password);
     const userInfo = await ctx.service.user.getUserNyName(username);
     // 账号不存在
     if (!userInfo || !userInfo.id) {
@@ -102,6 +101,65 @@ class UserControl extends Controller {
       },
     };
     return null;
+  }
+
+  // 获取用户息信
+  async getUserInfo() {
+    const { ctx, app } = this;
+    const token = ctx.request.header.authorization;
+    // 通过 app.jwt.verify 解析 token 内的用户信息；
+    const decode = await app.jwt.verify(token, app.config.jwt.secret);
+    // 通过 username 获取用户的全部信息；
+    const userInfo = await ctx.service.user.getUserNyName(decode.username);
+    // 获取密码信息，设置返回信息；
+    const { username, id, signature, avatar } = userInfo;
+    ctx.body = {
+      code: 200,
+      msg: '请求成功',
+      data: {
+        id,
+        username,
+        signature,
+        avatar,
+      },
+    };
+  }
+
+  // 修改用户信息；
+  async editUserInfo() {
+    const { ctx, app } = this;
+    const { signature = '', avatar = '' } = ctx.request.body;
+    try {
+      const token = ctx.request.header.authorization;
+      // 解码 token 中的用户名称;
+      const decode = await app.jwt.verify(token, app.config.jwt.secret);
+      if (!decode) return;
+      const user_id = decode.id;
+      // 通过 username 查找用户信息;
+      const userInfo = await ctx.service.user.getUserNyName(decode.username);
+      console.log({
+        ...userInfo,
+        signature,
+      });
+      await ctx.service.user.editUserInfo({
+        ...userInfo,
+        signature,
+        avatar,
+      });
+      ctx.body = {
+        code: 200,
+        msg: '修改成功',
+        data: {
+          id: user_id,
+          signature,
+          username: userInfo.username,
+          avatar,
+        },
+      };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
 }
 
