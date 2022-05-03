@@ -23,4 +23,16 @@ module.exports = app => {
   router.get('/api/user/test', _jwt, controller.user.test);
   // 上传头像
   router.post('/api/upload', controller.upload.upload);
+  // 插入账单信息
+  router.post('/api/bill/add', _jwt, controller.bill.add);
+  // 查找账单列表
+  router.get('/api/bill/list', _jwt, controller.bill.list);
+  // 查询账单详情
+  router.get('/api/bill/detail', _jwt, controller.bill.detail);
+  // 编辑账单
+  router.post('/api/bill/update', _jwt, controller.bill.update);
+  // 删除账单
+  router.post('/api/bill/delete', _jwt, controller.bill.delete);
+  // 查询月度消费
+  router.get('/api/bill/data', _jwt, controller.bill.data);
 };
